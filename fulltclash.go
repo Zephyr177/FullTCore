@@ -227,6 +227,9 @@ func startclashMixed(rawaddr string, index int) {
 	addr := rawaddr
 	tcpQueue := make(chan constant.ConnContext, 256)
 	udpQueue := make(chan constant.PacketAdapter, 32)
+	if resolver.DisableIPv6 {
+		resolver.DisableIPv6 = false
+	}
 	mixedListener, mixedUDPLister := CreateListenerMixed(addr, tcpQueue, udpQueue, index)
 	defer mixedListener.Close()
 	defer mixedUDPLister.Close()
